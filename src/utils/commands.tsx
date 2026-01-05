@@ -210,6 +210,118 @@ export const commands: Command[] = [
       return 'テーマの変更に失敗しました';
     },
   },
+  // Linuxコマンド (イースターエッグ)
+  {
+    name: 'ls',
+    description: 'ディレクトリの内容を表示',
+    execute: () => {
+      return `projects/     skills/      experience/   contact/\nabout.txt     timeline.md  README.md`;
+    },
+  },
+  {
+    name: 'pwd',
+    description: '現在のディレクトリを表示',
+    execute: () => {
+      return `/home/${portfolioData.name.toLowerCase().replace(' ', '_')}/portfolio`;
+    },
+  },
+  {
+    name: 'echo',
+    description: 'テキストを表示',
+    execute: (args: string[]) => {
+      return args.join(' ') || '';
+    },
+  },
+  {
+    name: 'cat',
+    description: 'ファイルの内容を表示 (使い方: cat <ファイル名>)',
+    execute: (args: string[]) => {
+      const file = args[0];
+      if (!file) {
+        return '使い方: cat <ファイル名>\n例: cat about.txt';
+      }
+      
+      const files: { [key: string]: string } = {
+        'about.txt': `${portfolioData.name} - ${portfolioData.title}\n\n${portfolioData.bio}`,
+        'readme.md': `# ${portfolioData.name}'s Portfolio\n\nこのターミナルでは、様々なコマンドを使って私の情報を探索できます。\n\n基本コマンド:\n- help: コマンド一覧\n- about: 自己紹介\n- projects: プロジェクト一覧\n- skills: スキル一覧\n\n詳しくは 'help' を実行してください。`,
+        'timeline.md': portfolioData.timeline.map(e => `[${e.year}] ${e.title}\n${e.description}`).join('\n\n'),
+      };
+      
+      const lowerFile = file.toLowerCase();
+      if (files[lowerFile]) {
+        return files[lowerFile];
+      }
+      
+      return `cat: ${file}: そのようなファイルやディレクトリはありません`;
+    },
+  },
+  {
+    name: 'sudo',
+    description: '管理者権限で実行（冗談です）',
+    execute: (args: string[]) => {
+      const cmd = args.join(' ');
+      if (cmd.includes('rm') || cmd.includes('delete')) {
+        return `sudo: ${cmd}\n[sudo] ${portfolioData.name} のパスワード: \n申し訳ありません、このポートフォリオを削除する権限はありません 😄`;
+      }
+      return `sudo: ${cmd}\n権限がありません。このポートフォリオではsudoは使えません！`;
+    },
+  },
+  {
+    name: 'mkdir',
+    description: 'ディレクトリを作成（読み取り専用です）',
+    execute: (args: string[]) => {
+      return `mkdir: ${args[0] || 'ディレクトリ名'} を作成できません: 読み取り専用ファイルシステムです`;
+    },
+  },
+  {
+    name: 'rm',
+    description: 'ファイルを削除（できません）',
+    execute: () => {
+      return `rm: 操作は許可されていません\nヒント: このポートフォリオは読み取り専用です 😊`;
+    },
+  },
+  {
+    name: 'man',
+    description: 'マニュアルを表示',
+    execute: (args: string[]) => {
+      if (!args[0]) {
+        return `使い方: man <コマンド名>\n\nこのポートフォリオのコマンドについて知りたい場合は 'help' を使ってください。`;
+      }
+      return `man: ${args[0]} のマニュアルページが見つかりません\n\n代わりに 'help' コマンドを使ってください。`;
+    },
+  },
+  {
+    name: 'grep',
+    description: 'パターン検索（簡易版）',
+    execute: (args: string[]) => {
+      if (args.length === 0) {
+        return '使い方: grep <検索文字列>\n例: grep typescript';
+      }
+      const query = args.join(' ').toLowerCase();
+      const results: string[] = [];
+      
+      // スキルから検索
+      portfolioData.skills.forEach(skill => {
+        if (skill.toLowerCase().includes(query)) {
+          results.push(`[Skills] ${skill}`);
+        }
+      });
+      
+      // プロジェクトから検索
+      portfolioData.projects.forEach(project => {
+        if (project.name.toLowerCase().includes(query) || 
+            project.description.toLowerCase().includes(query)) {
+          results.push(`[Projects] ${project.name}`);
+        }
+      });
+      
+      if (results.length === 0) {
+        return `'${args.join(' ')}' に一致するものが見つかりませんでした`;
+      }
+      
+      return results.join('\n');
+    },
+  },
 ];
 
 export const executeCommand = (input: string, cmdHistory?: string[], setTheme?: (theme: 'green' | 'blue' | 'amber') => void): string | JSX.Element => {
