@@ -96,7 +96,7 @@ export const commands: Command[] = [
       return `
 ╔══════════════════════════════════════════════════════════╗
 ║                                                          ║
-║  Welcome to ${portfolioData.name}'s Interactive Portfolio               ║
+║  Welcome to ${portfolioData.name}'s Interactive Portfolio        ║
 ║                                                          ║
 ║  Type 'help' to see available commands                   ║
 ║  Type 'about' to learn more about me                     ║
