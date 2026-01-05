@@ -1,7 +1,7 @@
 import { PortfolioData } from '../types';
 
 export const portfolioData: PortfolioData = {
-  name: 'Itsuki',
+  name: 'Itsuki Murata',
   title: 'Full Stack Developer',
   bio: 'プログラミングとテクノロジーに情熱を持つ開発者です。ユーザー体験を重視したアプリケーション開発に取り組んでいます。',
   skills: [
@@ -12,28 +12,27 @@ export const portfolioData: PortfolioData = {
     'Docker',
     'Git',
     'AWS',
-    'PostgreSQL',
-  ],
+    'MySQL',
+    ],
   projects: [
     {
       name: 'Terminal Portfolio',
-      description: 'インタラクティブなターミナル風ポートフォリオサイト',
+      description: '村田一生によるエンジニアのためのインタラクティブなターミナル風ポートフォリオサイト',
       technologies: ['TypeScript', 'React', 'Vite'],
       github: 'https://github.com/Itsuki0016/My_portfolio',
     },
     // ここに他のプロジェクトを追加できます
   ],
   contact: {
-    email: 'your.email@example.com',
+    email: 'ktc24a31e0016@edu.kyoto-tech.ac.jp',
     github: 'https://github.com/Itsuki0016',
-    linkedin: 'https://linkedin.com/in/yourprofile',
   },
   experience: [
     {
-      company: 'あなたの会社名',
-      position: 'ソフトウェアエンジニア',
-      period: '2023 - 現在',
-      description: 'Webアプリケーションの開発とメンテナンス',
+      company: '京都デザイン＆テクノロジー専門学校',
+      position: '学生',
+      period: '2024 - 現在',
+      description: 'ホワイトハッカーを専攻し、Web開発やソフトウェアエンジニアリングを学んでいます',
     },
     // ここに他の経験を追加できます
   ],
