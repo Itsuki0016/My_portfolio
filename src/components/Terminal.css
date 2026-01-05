@@ -9,6 +9,39 @@
   overflow: hidden;
 }
 
+/* テーマカラー */
+.terminal.theme-green {
+  color: #00ff00;
+}
+
+.terminal.theme-green .terminal-prompt {
+  color: #00ff00;
+}
+
+.terminal.theme-blue {
+  color: #00bfff;
+}
+
+.terminal.theme-blue .terminal-prompt {
+  color: #00bfff;
+}
+
+.terminal.theme-blue .terminal-input {
+  caret-color: #00bfff;
+}
+
+.terminal.theme-amber {
+  color: #ffbf00;
+}
+
+.terminal.theme-amber .terminal-prompt {
+  color: #ffbf00;
+}
+
+.terminal.theme-amber .terminal-input {
+  caret-color: #ffbf00;
+}
+
 .terminal-header {
   background: linear-gradient(to bottom, #3c3c3c, #2a2a2a);
   padding: 8px 12px;

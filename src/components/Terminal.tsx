@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { HistoryItem } from '../types';
-import { executeCommand } from '../utils/commands';
+import { executeCommand, commands } from '../utils/commands';
 import './Terminal.css';
 
 const Terminal = () => {
@@ -8,6 +8,7 @@ const Terminal = () => {
     const [input, setInput] = useState('');
     const [commandHistory, setCommandHistory] = useState<string[]>([]);
     const [historyIndex, setHistoryIndex] = useState(-1);
+    const [theme, setTheme] = useState<'green' | 'blue' | 'amber'>('green');
     const inputRef = useRef<HTMLInputElement>(null);
     const terminalBodyRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +39,7 @@ const Terminal = () => {
             return;
         }
 
-        const output = executeCommand(input);
+        const output = executeCommand(input, commandHistory, setTheme);
 
         // clearコマンドの特別処理
         if (output === 'CLEAR_SCREEN') {
@@ -60,6 +61,48 @@ const Terminal = () => {
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        // タブキー: コマンド補完
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            if (input.trim()) {
+                const inputLower = input.toLowerCase().trim();
+                const matches = commands.filter(cmd => 
+                    cmd.name.startsWith(inputLower)
+                );
+                
+                if (matches.length === 1) {
+                    // 1つだけマッチした場合、そのコマンドで補完
+                    setInput(matches[0].name);
+                } else if (matches.length > 1) {
+                    // 複数マッチした場合、共通部分まで補完
+                    let commonPrefix = matches[0].name;
+                    for (let i = 1; i < matches.length; i++) {
+                        let j = 0;
+                        while (j < commonPrefix.length && j < matches[i].name.length && 
+                               commonPrefix[j] === matches[i].name[j]) {
+                            j++;
+                        }
+                        commonPrefix = commonPrefix.substring(0, j);
+                    }
+                    
+                    // 共通部分が現在の入力より長い場合は補完
+                    if (commonPrefix.length > inputLower.length) {
+                        setInput(commonPrefix);
+                    } else {
+                        // 共通部分がない場合は候補を表示
+                        const suggestion = matches.map(m => m.name).join(', ');
+                        const newHistoryItem: HistoryItem = {
+                            command: '',
+                            output: `候補: ${suggestion}`,
+                            timestamp: new Date(),
+                        };
+                        setHistory([...history, newHistoryItem]);
+                    }
+                }
+            }
+            return;
+        }
+
         // 上キー: 前のコマンド
         if (e.key === 'ArrowUp') {
             e.preventDefault();
@@ -94,7 +137,7 @@ const Terminal = () => {
     };
 
     return (
-        <div className="terminal" onClick={handleTerminalClick}>
+        <div className={`terminal theme-${theme}`} onClick={handleTerminalClick}>
             <div className="terminal-header">
                 <div className="terminal-buttons">
                     <span className="terminal-button close"></span>
