@@ -94,14 +94,14 @@ export const commands: Command[] = [
     description: 'ウェルカムバナーを表示します',
     execute: () => {
       return `
-╔════════════════════════════════════════════════════════════╗
-║                                                                                                                        ║
-║   Welcome to ${portfolioData.name}'s Interactive Portfolio                                                             ║
-║                                                                                                                        ║
-║   Type 'help' to see available commands                                                                                ║
-║   Type 'about' to learn more about me                                                                                  ║
-║                                                                                                                        ║
-╚════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════╗
+║                                                          ║
+║  Welcome to ${portfolioData.name}'s Interactive Portfolio               ║
+║                                                          ║
+║  Type 'help' to see available commands                   ║
+║  Type 'about' to learn more about me                     ║
+║                                                          ║
+╚══════════════════════════════════════════════════════════╝
       `.trim();
     },
   },
