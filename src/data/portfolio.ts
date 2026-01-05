@@ -159,19 +159,19 @@ export const portfolioData: PortfolioData = {
       type: 'education'
     },
     {
-      year: '2024',
+      year: '2025',
       title: 'All-Vault-Cloud (AVC) 開発',
       description: 'AWS Bedrockを活用した行政向けFAX業務デジタル化システムをPoC実装。年間2,000時間削減を試算',
       type: 'achievement'
     },
     {
-      year: '2024',
+      year: '2025',
       title: 'カジノチェックインシステム 開発・運用',
       description: '学園祭で実運用されるBun/Hono/React製の来場者管理システムを構築',
       type: 'achievement'
     },
     {
-      year: '2024',
+      year: '2025',
       title: 'Laravel カレンダー 開発',
       description: 'Apple Calendar風UIを持つ高機能スケジューラーアプリを実装',
       type: 'achievement'
