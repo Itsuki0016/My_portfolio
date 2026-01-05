@@ -95,12 +95,12 @@ export const commands: Command[] = [
     execute: () => {
       return `
 ╔════════════════════════════════════════════════════════════╗
-║                                                            ║
-║   Welcome to ${portfolioData.name}'s Interactive Portfolio          ║
-║                                                            ║
-║   Type 'help' to see available commands                   ║
-║   Type 'about' to learn more about me                     ║
-║                                                            ║
+║                                                                                                                        ║
+║   Welcome to ${portfolioData.name}'s Interactive Portfolio                                                             ║
+║                                                                                                                        ║
+║   Type 'help' to see available commands                                                                                ║
+║   Type 'about' to learn more about me                                                                                  ║
+║                                                                                                                        ║
 ╚════════════════════════════════════════════════════════════╝
       `.trim();
     },
