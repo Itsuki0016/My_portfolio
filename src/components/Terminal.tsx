@@ -9,7 +9,7 @@ const Terminal = () => {
     const [commandHistory, setCommandHistory] = useState<string[]>([]);
     const [historyIndex, setHistoryIndex] = useState(-1);
     const inputRef = useRef<HTMLInputElement>(null);
-    const terminalRef = useRef<HTMLDivElement>(null);
+    const terminalBodyRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         // 初回起動時にウェルカムメッセージを表示
@@ -26,8 +26,8 @@ const Terminal = () => {
 
     useEffect(() => {
         // 自動スクロール
-        if (terminalRef.current) {
-            terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+        if (terminalBodyRef.current) {
+            terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
         }
     }, [history]);
 
@@ -94,7 +94,7 @@ const Terminal = () => {
     };
 
     return (
-        <div className="terminal" onClick={handleTerminalClick} ref={terminalRef}>
+        <div className="terminal" onClick={handleTerminalClick}>
             <div className="terminal-header">
                 <div className="terminal-buttons">
                     <span className="terminal-button close"></span>
@@ -104,7 +104,7 @@ const Terminal = () => {
                 <div className="terminal-title">visitor@portfolio:~</div>
             </div>
             
-            <div className="terminal-body">
+            <div className="terminal-body" ref={terminalBodyRef}>
                 {history.map((item, index) => (
                     <div key={index} className="terminal-history-item">
                         {item.command && (
